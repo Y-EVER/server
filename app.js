@@ -6,9 +6,16 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
+//前后端跨域交互
 var app = express();
-
+var allowCors= function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", 'http://localhost:8080');
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+  res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+  res.header("Access-Control-Allow-Credentials", "true");
+  next();
+};
+app.use(allowCors);//使用跨域交互
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');

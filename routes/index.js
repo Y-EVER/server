@@ -12,14 +12,20 @@ connection.connect();
 
 router.post('/login',function(req,res){
 	var username = req.body.username
-	var pwd = req.body.password
+	var password = req.body.password
 
-	var sql = 'SELECT * FROM user';
+	var sql = `SELECT * FROM user WHERE username='${username}' && password='${password}'`;
+	
 	connection.query(sql,(err,data) => {
 		if(err) throw err;
-		res.send(data)
+		// res.send(data)
+		if(data.length !=0){
+			res.send('ok')
+		}else{
+			res.send('fail')
+		}
 	});
-})
+});
 
 /* GET home page. */
 
